@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { Button } from '../ui/Button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Wand2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { removeBackground } from '../../utils/removeBg';
 
 export function StyleStep() {
   const { 
-    croppedImage,
+    croppedImage, setCroppedImage,
     backgroundColor, setBackgroundColor,
     borderWidth, setBorder, borderColor,
     nextStep, prevStep
   } = useAppStore();
+
+  const [isRemovingBg, setIsRemovingBg] = useState(false);
+
+  const handleRemoveBg = async () => {
+      if (!croppedImage) return;
+      setIsRemovingBg(true);
+      try {
+          const removed = await removeBackground(croppedImage);
+          setCroppedImage(removed);
+      } catch (err: any) {
+          console.error(err);
+          alert('Failed to remove background: ' + err.message);
+      } finally {
+          setIsRemovingBg(false);
+      }
+  };
 
   const presetColors = [
     { name: 'White', value: '#ffffff' },
@@ -61,6 +78,24 @@ export function StyleStep() {
                         <span className="text-xs font-medium text-[#64748B] pr-2">Custom</span>
                      </div>
                  </div>
+             </div>
+
+             {/* Background Removal */}
+             <div className="space-y-3 pt-6 border-t border-[#E2E8F0]">
+                <div className="flex justify-between items-center bg-[#F8FAFC] p-4 rounded-lg border border-[#E2E8F0]">
+                   <div>
+                       <h3 className="text-sm font-semibold text-[#1E293B]">AI Background Removal</h3>
+                       <p className="text-xs text-[#64748B] mt-1">Automatically remove the background.</p>
+                   </div>
+                   <Button 
+                       variant="secondary" 
+                       onClick={handleRemoveBg} 
+                       isLoading={isRemovingBg}
+                       size="sm"
+                   >
+                       <Wand2 size={14} className="mr-2" /> Remove Bg
+                   </Button>
+                </div>
              </div>
 
              {/* Border */}

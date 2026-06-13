@@ -151,22 +151,19 @@ export function PreviewExportStep() {
                   style={{
                     width: `${paperWidthMM}mm`,
                     height: `${paperHeightMM}mm`,
-                    padding: `${marginMM}mm`,
                     // We need a subtle transform scale for preview so it fits, but html2canvas captures original sizes
                     transform: `scale(clamp(0.3, min(100% / ${paperWidthMM * 3.78}, 500px / ${paperHeightMM * 3.78}), 1))`,
                   }}
              >
                  <div 
                    id="print-preview" 
-                   className="w-full h-full bg-white flex flex-wrap content-start"
+                   className="w-full h-full bg-white"
                    style={{
                       padding: `${marginMM}mm`,
-                      width: `${paperWidthMM}mm`,
-                      height: `${paperHeightMM}mm`,
                       boxSizing: 'border-box'
                    }}
                  >
-                     <div className="flex flex-wrap gap-0 w-full h-full content-center justify-center">
+                     <div className="flex flex-wrap content-start justify-start w-full h-full" style={{ gap: `${spacing}mm` }}>
                        {gridLayout.map((_, idx) => (
                            <div 
                              key={idx} 
@@ -174,7 +171,6 @@ export function PreviewExportStep() {
                              style={{
                                width: `${photoWidthMM}mm`,
                                height: `${photoHeightMM}mm`,
-                               margin: `${spacing / 2}mm`,
                                backgroundColor,
                                border: `${borderWidth}mm solid ${borderColor}`,
                                boxSizing: 'border-box'
@@ -188,19 +184,10 @@ export function PreviewExportStep() {
                               
                               {/* Crop marks logic */}
                               {showCropMarks && (
-                                <>
-                                  <div className="absolute -top-[1mm] -left-[1mm] w-[3mm] h-[0.5mm] bg-black/50" />
-                                  <div className="absolute -top-[1mm] -left-[1mm] w-[0.5mm] h-[3mm] bg-black/50" />
-                                  
-                                  <div className="absolute -top-[1mm] -right-[1mm] w-[3mm] h-[0.5mm] bg-black/50" />
-                                  <div className="absolute -top-[1mm] -right-[1mm] w-[0.5mm] h-[3mm] bg-black/50" />
-
-                                  <div className="absolute -bottom-[1mm] -left-[1mm] w-[3mm] h-[0.5mm] bg-black/50" />
-                                  <div className="absolute -bottom-[1mm] -left-[1mm] w-[0.5mm] h-[3mm] bg-black/50" />
-                                  
-                                  <div className="absolute -bottom-[1mm] -right-[1mm] w-[3mm] h-[0.5mm] bg-black/50" />
-                                  <div className="absolute -bottom-[1mm] -right-[1mm] w-[0.5mm] h-[3mm] bg-black/50" />
-                                </>
+                                <div 
+                                    className="absolute inset-0 pointer-events-none" 
+                                    style={{ border: '0.2mm solid black' }} 
+                                />
                               )}
                            </div>
                        ))}
