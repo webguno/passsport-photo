@@ -11,7 +11,10 @@ export interface PhotoSize {
 export type PaperSize = 'A4' | 'Letter' | '4R (4x6")' | '5R (5x7")';
 export type PaperOrientation = 'portrait' | 'landscape';
 
+export type ViewPage = 'home' | 'privacy' | 'terms' | 'contact' | 'about';
+
 export interface AppState {
+  currentView: ViewPage;
   step: number;
   originalImage: string | null;
   croppedImage: string | null;
@@ -42,6 +45,7 @@ export interface AppState {
   resetDoc: () => void;
   
   setOriginalImage: (image: string | null) => void;
+  setCurrentView: (view: ViewPage) => void;
   setCroppedImage: (image: string | null) => void;
   
   setPhotoSize: (size: PhotoSize) => void;

@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { AppState, PRESET_SIZES } from '../types';
 
 export const useAppStore = create<AppState>((set) => ({
+  currentView: 'home',
   step: 1,
   originalImage: null,
   croppedImage: null,
@@ -46,6 +47,7 @@ export const useAppStore = create<AppState>((set) => ({
   }),
   
   setOriginalImage: (image) => set({ originalImage: image }),
+  setCurrentView: (view) => set({ currentView: view }),
   setCroppedImage: (image) => set({ croppedImage: image }),
   
   setPhotoSize: (size) => set({ photoSize: size }),
