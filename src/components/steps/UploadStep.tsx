@@ -51,8 +51,8 @@ export function UploadStep() {
           onDrop={onDrop}
           onClick={() => document.getElementById('file-upload')?.click()}
         >
-          <div className="w-16 h-16 bg-blue-50 text-[#2563EB] rounded-full flex items-center justify-center mb-4">
-            <UploadCloud size={32} />
+          <div className="mb-4">
+            <img src="/app-icon.png" alt="Upload" className="w-16 h-16 rounded-xl object-contain drop-shadow-sm" />
           </div>
           <h3 className="text-base font-semibold text-[#1E293B] mb-1">Drag & Drop your image</h3>
           <p className="text-xs text-[#64748B] mb-6">or click to browse from your device</p>
