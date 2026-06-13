@@ -7,7 +7,7 @@ export function Header() {
   return (
     <header className="h-14 border-b border-[#E2E8F0] bg-white flex items-center justify-between px-6 shrink-0 shadow-sm z-10 w-full relative">
       <div className="flex items-center gap-3 font-outfit">
-        <img src="/app-icon.png" alt="App Icon" className="w-8 h-8 object-contain rounded-lg" />
+        <img src="/app-icon.png" alt="App Icon" className="w-[51px] h-[51px] rounded-lg" />
         <div className="flex flex-col">
           <h1 className="font-bold text-lg tracking-tight leading-none">Passport Photo</h1>
           <span className="text-[10px] text-[#94A3B8] font-medium tracking-tight mt-0.5">App By WEBGUNO</span>
