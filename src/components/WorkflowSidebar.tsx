@@ -42,9 +42,8 @@ export function WorkflowSidebar() {
         </div>
       </div>
       <div className="mt-auto p-4 border-t border-[#E2E8F0]">
-        <div className="bg-blue-50 rounded-lg p-3 text-[12px] text-[#2563EB]">
-          <p className="font-bold mb-1">Pro Tip:</p>
-          A4 size printing requires 300 DPI for best results. Use "High Quality" PDF.
+        <div className="rounded-lg p-3 h-20 flex items-center justify-center text-[#CBD5E1] font-black text-2xl tracking-widest opacity-50 select-none">
+          WEBGUNO
         </div>
       </div>
     </nav>
