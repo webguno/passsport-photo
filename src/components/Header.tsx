@@ -1,5 +1,4 @@
 import React from 'react';
-import { FileImage } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 
 export function Header() {
@@ -7,11 +6,12 @@ export function Header() {
 
   return (
     <header className="h-14 border-b border-[#E2E8F0] bg-white flex items-center justify-between px-6 shrink-0 shadow-sm z-10 w-full relative">
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-[#2563EB] rounded-lg flex items-center justify-center">
-          <FileImage size={20} strokeWidth={2.5} className="text-white"/>
+      <div className="flex items-center gap-3 font-outfit">
+        <img src="/app-icon.png" alt="App Icon" className="w-8 h-8 object-contain rounded-lg" />
+        <div className="flex flex-col">
+          <h1 className="font-bold text-lg tracking-tight leading-none">Passport Photo</h1>
+          <span className="text-[10px] text-[#94A3B8] font-medium tracking-tight mt-0.5">App By WEBGUNO</span>
         </div>
-        <h1 className="font-bold text-lg tracking-tight">Passport Pro <span className="text-[10px] font-medium bg-[#E2E8F0] px-1.5 py-0.5 rounded text-[#64748B] align-middle ml-1">BETA</span></h1>
       </div>
       
       <div className="flex items-center gap-4">

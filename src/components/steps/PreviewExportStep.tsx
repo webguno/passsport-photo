@@ -32,9 +32,15 @@ export function PreviewExportStep() {
   const photoHeightMM = toMM(pHeight, pUnit);
 
   // Paper Dimensions in mm
-  const isA4 = paperSize === 'A4';
-  const rawPaperWidth = isA4 ? 210 : 215.9; // A4 vs Letter
-  const rawPaperHeight = isA4 ? 297 : 279.4;
+  const PAPER_DIMENSIONS: Record<string, { w: number, h: number }> = {
+    'A4': { w: 210, h: 297 },
+    'Letter': { w: 215.9, h: 279.4 },
+    '4R (4x6")': { w: 101.6, h: 152.4 },
+    '5R (5x7")': { w: 127, h: 177.8 },
+  };
+
+  const rawPaperWidth = PAPER_DIMENSIONS[paperSize]?.w || 210;
+  const rawPaperHeight = PAPER_DIMENSIONS[paperSize]?.h || 297;
 
   const paperWidthMM = paperOrientation === 'portrait' ? rawPaperWidth : rawPaperHeight;
   const paperHeightMM = paperOrientation === 'portrait' ? rawPaperHeight : rawPaperWidth;
@@ -75,7 +81,8 @@ export function PreviewExportStep() {
     setExporting(type);
     try {
       if (type === 'pdf') {
-        await generatePDF('print-preview', paperSize.toLowerCase() as any, paperOrientation);
+        const dimensions: [number, number] = [rawPaperWidth, rawPaperHeight];
+        await generatePDF('print-preview', dimensions, paperOrientation);
       } else {
         await generateImage('print-preview', type === 'jpg' ? 'image/jpeg' : 'image/png');
       }

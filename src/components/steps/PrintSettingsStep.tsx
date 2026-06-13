@@ -36,7 +36,7 @@ export function PrintSettingsStep() {
              <div className="space-y-2">
                  <label className="text-xs font-semibold text-[#1E293B]">Format</label>
                  <div className="grid grid-cols-2 gap-2">
-                    {['A4', 'Letter'].map((size) => (
+                    {['A4', 'Letter', '4R (4x6")', '5R (5x7")'].map((size) => (
                         <button
                           key={size}
                           onClick={() => setPaperConfig(size as PaperSize, paperOrientation)}

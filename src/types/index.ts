@@ -8,7 +8,7 @@ export interface PhotoSize {
   unit: Unit;
 }
 
-export type PaperSize = 'A4' | 'Letter';
+export type PaperSize = 'A4' | 'Letter' | '4R (4x6")' | '5R (5x7")';
 export type PaperOrientation = 'portrait' | 'landscape';
 
 export interface AppState {

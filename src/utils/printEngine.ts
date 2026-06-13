@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-export async function generatePDF(elementId: string, format: 'a4' | 'letter', orientation: 'portrait' | 'landscape') {
+export async function generatePDF(elementId: string, format: string | [number, number], orientation: 'portrait' | 'landscape') {
   const element = document.getElementById(elementId);
   if (!element) throw new Error('Preview element not found');
 
