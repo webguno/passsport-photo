@@ -7,8 +7,8 @@ import { generatePDF, generateImage } from '../../utils/printEngine';
 export function PreviewExportStep() {
   const { 
     croppedImage, photoSize, customWidth, customHeight, customUnit,
-    backgroundColor, borderWidth, borderColor,
-    paperSize, paperOrientation, quantity, spacing, showCropMarks,
+    backgroundColor, borderWidth, borderColor, innerMargin, marginColor,
+    paperSize, paperOrientation, quantity, spacing, pageMargin, showCropMarks,
     nextStep, prevStep
   } = useAppStore();
 
@@ -39,7 +39,7 @@ export function PreviewExportStep() {
   const paperWidthMM = paperOrientation === 'portrait' ? rawPaperWidth : rawPaperHeight;
   const paperHeightMM = paperOrientation === 'portrait' ? rawPaperHeight : rawPaperWidth;
 
-  const marginMM = 10; // Fixed page margin
+  const marginMM = pageMargin; // Dynamic page margin
 
   // Calculate layout
   const gridLayout = useMemo(() => {
@@ -69,7 +69,7 @@ export function PreviewExportStep() {
       items.push(i);
     }
     return items;
-  }, [paperWidthMM, paperHeightMM, photoWidthMM, photoHeightMM, spacing, quantity, croppedImage]);
+  }, [paperWidthMM, paperHeightMM, photoWidthMM, photoHeightMM, spacing, quantity, marginMM, croppedImage]);
 
   const handleExport = async (type: 'pdf' | 'jpg' | 'png') => {
     setExporting(type);
@@ -144,15 +144,15 @@ export function PreviewExportStep() {
          </div>
 
          {/* Preview Area */}
-         <div className="flex-1 bg-[#E2E8F0] p-4 lg:p-8 flex justify-center items-center overflow-x-auto overflow-y-auto lg:order-2 order-1 min-h-[400px]">
+         <div className="flex-1 bg-[#E2E8F0] p-4 lg:p-8 lg:order-2 order-1 min-h-[400px] overflow-auto">
              
              {/* The exact DOM element for capture */}
-             <div className="shadow-2xl bg-white origin-top" 
+             <div className="shadow-2xl bg-white mx-auto origin-top" 
                   style={{
                     width: `${paperWidthMM}mm`,
                     height: `${paperHeightMM}mm`,
-                    // We need a subtle transform scale for preview so it fits, but html2canvas captures original sizes
-                    transform: `scale(clamp(0.3, min(100% / ${paperWidthMM * 3.78}, 500px / ${paperHeightMM * 3.78}), 1))`,
+                    minWidth: `${paperWidthMM}mm`,
+                    minHeight: `${paperHeightMM}mm`,
                   }}
              >
                  <div 
@@ -167,26 +167,36 @@ export function PreviewExportStep() {
                        {gridLayout.map((_, idx) => (
                            <div 
                              key={idx} 
-                             className="relative"
+                             className="relative box-border flex items-center justify-center p-0 m-0"
                              style={{
                                width: `${photoWidthMM}mm`,
                                height: `${photoHeightMM}mm`,
-                               backgroundColor,
-                               border: `${borderWidth}mm solid ${borderColor}`,
+                               backgroundColor: marginColor,
+                               padding: `${innerMargin}mm`,
                                boxSizing: 'border-box'
                              }}
                            >
-                              <img 
-                                src={croppedImage} 
-                                className="w-full h-full object-contain pointer-events-none mix-blend-normal" 
-                                style={{ padding:0, display:'block' }}
-                              />
+                              <div
+                                className="w-full h-full box-border"
+                                style={{
+                                   border: `${borderWidth}mm solid ${borderColor}`,
+                                   backgroundColor: backgroundColor,
+                                   boxSizing: 'border-box'
+                                }}
+                              >
+                                  <img 
+                                    src={croppedImage} 
+                                    className="w-full h-full object-cover pointer-events-none mix-blend-normal block m-0 p-0" 
+                                  />
+                              </div>
                               
                               {/* Crop marks logic */}
                               {showCropMarks && (
                                 <div 
-                                    className="absolute inset-0 pointer-events-none" 
-                                    style={{ border: '0.2mm solid black' }} 
+                                    className="absolute inset-0 pointer-events-none box-border" 
+                                    style={{ 
+                                      border: '0.15mm solid rgba(0,0,0,0.8)' 
+                                    }} 
                                 />
                               )}
                            </div>

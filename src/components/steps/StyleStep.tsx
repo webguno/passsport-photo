@@ -8,8 +8,10 @@ import { removeBackground } from '../../utils/removeBg';
 export function StyleStep() {
   const { 
     croppedImage, setCroppedImage,
+    photoSize, customWidth, customHeight, customUnit,
     backgroundColor, setBackgroundColor,
     borderWidth, setBorder, borderColor,
+    innerMargin, setInnerMargin, marginColor, setMarginColor,
     nextStep, prevStep
   } = useAppStore();
 
@@ -102,30 +104,81 @@ export function StyleStep() {
              <div className="space-y-3 pt-6 border-t border-[#E2E8F0]">
                  <div className="flex justify-between items-center">
                     <h3 className="text-sm font-semibold text-[#1E293B]">Border Settings</h3>
-                    <input 
-                          type="color" 
-                          value={borderColor}
-                          onChange={(e) => setBorder(borderWidth, e.target.value)}
-                          className="w-8 h-8 rounded cursor-pointer border border-[#E2E8F0]"
-                          title="Border Color"
-                    />
+                    <div className="flex items-center gap-2">
+                       <span className="text-xs text-[#64748B]">Color:</span>
+                       <input 
+                              type="color" 
+                              value={borderColor}
+                              onChange={(e) => setBorder(borderWidth, e.target.value)}
+                              className="w-8 h-8 rounded cursor-pointer border border-[#E2E8F0]"
+                              title="Border Color"
+                        />
+                    </div>
                  </div>
                  
-                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-                     {presetBorders.map(border => (
-                         <button
-                           key={border.value}
-                           onClick={() => setBorder(border.value, borderColor)}
-                           className={cn(
-                             "px-3 py-2 rounded-lg border text-xs font-semibold transition-all",
-                             borderWidth === border.value 
-                              ? "border-[#2563EB] bg-blue-50 text-[#2563EB]" 
-                              : "border-[#E2E8F0] text-[#64748B] hover:border-[#94A3B8]"
-                           )}
-                         >
-                           {border.label}
-                         </button>
-                     ))}
+                 <div className="flex items-center gap-4">
+                     <input 
+                        type="range"
+                        value={borderWidth}
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        onChange={(e) => setBorder(Number(e.target.value), borderColor)}
+                        className="flex-1 h-1 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
+                     />
+                     <div className="w-20 relative">
+                         <input
+                           type="number"
+                           value={borderWidth}
+                           max={20}
+                           min={0}
+                           step={0.5}
+                           onChange={(e) => setBorder(Number(e.target.value), borderColor)}
+                           className="w-full text-sm border border-[#E2E8F0] p-1.5 px-2 rounded-lg bg-white focus:border-[#2563EB] focus:outline-none"
+                         />
+                         <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#64748B] pointer-events-none">mm</span>
+                     </div>
+                 </div>
+             </div>
+
+             {/* Inner Margin */}
+             <div className="space-y-3 pt-6 border-t border-[#E2E8F0]">
+                 <div className="flex justify-between items-center">
+                    <h3 className="text-sm font-semibold text-[#1E293B]">Inner Margin</h3>
+                    <div className="flex items-center gap-2">
+                       <span className="text-xs text-[#64748B]">Color:</span>
+                       <input 
+                              type="color" 
+                              value={marginColor}
+                              onChange={(e) => setMarginColor(e.target.value)}
+                              className="w-8 h-8 rounded cursor-pointer border border-[#E2E8F0]"
+                              title="Margin Color"
+                        />
+                    </div>
+                 </div>
+                 
+                 <div className="flex items-center gap-4">
+                     <input 
+                        type="range"
+                        value={innerMargin}
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        onChange={(e) => setInnerMargin(Number(e.target.value))}
+                        className="flex-1 h-1 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
+                     />
+                     <div className="w-20 relative">
+                         <input
+                           type="number"
+                           value={innerMargin}
+                           max={20}
+                           min={0}
+                           step={0.5}
+                           onChange={(e) => setInnerMargin(Number(e.target.value))}
+                           className="w-full text-sm border border-[#E2E8F0] p-1.5 px-2 rounded-lg bg-white focus:border-[#2563EB] focus:outline-none"
+                         />
+                         <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#64748B] pointer-events-none">mm</span>
+                     </div>
                  </div>
              </div>
          </div>
@@ -133,20 +186,52 @@ export function StyleStep() {
          {/* Preview */}
          <div className="md:w-[280px] flex-shrink-0 bg-[#F8FAFC] border-l border-[#E2E8F0] p-6 flex flex-col items-center justify-center">
              <span className="text-[11px] font-bold uppercase tracking-widest text-[#94A3B8] mb-6">Live Preview</span>
-             {croppedImage && (
-                 <div className="shadow-lg transition-all" style={{ backgroundColor }}>
-                     <img 
-                       src={croppedImage} 
-                       className="w-48 object-contain mix-blend-normal" 
-                       style={{ 
-                         border: `${borderWidth}px solid ${borderColor}`,
-                         padding:0,
-                         display: 'block'
-                       }} 
-                       alt="Preview"
-                     />
-                 </div>
-             )}
+             {croppedImage && (() => {
+                 const pWidth = photoSize.id === 'custom' ? customWidth : photoSize.width;
+                 const pHeight = photoSize.id === 'custom' ? customHeight : photoSize.height;
+                 const pUnit = photoSize.id === 'custom' ? customUnit : photoSize.unit;
+                 
+                 const toMM = (val: number, unit: string) => {
+                   switch(unit) {
+                     case 'cm': return val * 10;
+                     case 'inch': return val * 25.4;
+                     case 'px': return val * 0.264583;
+                     default: return val;
+                   }
+                 };
+                 
+                 const photoWidthMM = toMM(pWidth, pUnit);
+                 const photoHeightMM = toMM(pHeight, pUnit);
+                 
+                 // Compute a responsive scale so it fits the 200px max preview area
+                 const scale = Math.min(200 / photoWidthMM, 200 / photoHeightMM);
+                 
+                 return (
+                   <div 
+                     className="shadow-lg transition-all box-border flex items-center justify-center" 
+                     style={{ 
+                       width: `${photoWidthMM * scale}px`,
+                       height: `${photoHeightMM * scale}px`,
+                       backgroundColor: marginColor,
+                       padding: `${innerMargin * scale}px`
+                     }}
+                   >
+                     <div
+                        className="w-full h-full box-border"
+                        style={{
+                           border: `${borderWidth * scale}px solid ${borderColor}`,
+                           backgroundColor: backgroundColor
+                        }}
+                     >
+                         <img 
+                           src={croppedImage} 
+                           className="w-full h-full object-cover mix-blend-normal block" 
+                           alt="Preview"
+                         />
+                     </div>
+                   </div>
+                 );
+             })()}
          </div>
       </div>
 

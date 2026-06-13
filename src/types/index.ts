@@ -24,12 +24,15 @@ export interface AppState {
   backgroundColor: string;
   borderWidth: number; // in mm
   borderColor: string;
+  innerMargin: number; // in mm
+  marginColor: string;
   
   paperSize: PaperSize;
   paperOrientation: PaperOrientation;
   
   quantity: number | 'auto';
   spacing: number; // in mm
+  pageMargin: number; // in mm
   showCropMarks: boolean;
   
   // Actions
@@ -46,10 +49,13 @@ export interface AppState {
   
   setBackgroundColor: (color: string) => void;
   setBorder: (width: number, color: string) => void;
+  setInnerMargin: (margin: number) => void;
+  setMarginColor: (color: string) => void;
   
   setPaperConfig: (size: PaperSize, orientation: PaperOrientation) => void;
   setQuantity: (quantity: number | 'auto') => void;
   setSpacing: (spacing: number) => void;
+  setPageMargin: (margin: number) => void;
   setCropMarks: (show: boolean) => void;
 }
 

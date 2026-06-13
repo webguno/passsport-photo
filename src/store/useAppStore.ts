@@ -14,12 +14,14 @@ export const useAppStore = create<AppState>((set) => ({
   backgroundColor: '#ffffff',
   borderWidth: 0,
   borderColor: '#000000',
+  innerMargin: 0,
   
   paperSize: 'A4',
   paperOrientation: 'portrait',
   
   quantity: 'auto',
   spacing: 5,
+  pageMargin: 10,
   showCropMarks: true,
   
   setStep: (step) => set({ step }),
@@ -33,10 +35,13 @@ export const useAppStore = create<AppState>((set) => ({
     backgroundColor: '#ffffff',
     borderWidth: 0,
     borderColor: '#000000',
+    innerMargin: 0,
+    marginColor: '#ffffff',
     paperSize: 'A4',
     paperOrientation: 'portrait',
     quantity: 'auto',
     spacing: 5,
+    pageMargin: 10,
     showCropMarks: true,
   }),
   
@@ -48,9 +53,12 @@ export const useAppStore = create<AppState>((set) => ({
   
   setBackgroundColor: (color) => set({ backgroundColor: color }),
   setBorder: (width, color) => set({ borderWidth: width, borderColor: color }),
+  setInnerMargin: (margin) => set({ innerMargin: margin }),
+  setMarginColor: (color) => set({ marginColor: color }),
   
   setPaperConfig: (paperSize, paperOrientation) => set({ paperSize, paperOrientation }),
   setQuantity: (quantity) => set({ quantity }),
   setSpacing: (spacing) => set({ spacing }),
+  setPageMargin: (margin) => set({ pageMargin: margin }),
   setCropMarks: (show) => set({ showCropMarks: show }),
 }));

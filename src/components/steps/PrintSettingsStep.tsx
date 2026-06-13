@@ -9,7 +9,7 @@ export function PrintSettingsStep() {
   const { 
     paperSize, paperOrientation, setPaperConfig,
     quantity, setQuantity,
-    spacing, setSpacing,
+    spacing, setSpacing, pageMargin, setPageMargin,
     showCropMarks, setCropMarks,
     nextStep, prevStep
   } = useAppStore();
@@ -79,19 +79,34 @@ export function PrintSettingsStep() {
 
              <div className="space-y-2">
                  <label className="text-xs font-semibold text-[#1E293B]">Quantity</label>
-                 <div className="grid grid-cols-4 sm:grid-cols-7 gap-1">
+                 <div className="flex flex-wrap gap-2">
                      {quantities.map(q => (
                          <button
                            key={q}
                            onClick={() => setQuantity(q)}
                            className={cn(
-                             "p-2 rounded border text-xs font-semibold transition-all flex items-center justify-center",
+                             "w-12 h-10 rounded border text-xs font-semibold transition-all flex items-center justify-center",
                              quantity === q ? "border-[#2563EB] bg-[#2563EB] text-white" : "border-[#E2E8F0] text-[#1E293B] hover:border-[#2563EB] bg-white"
                            )}
                          >
                            {q === 'auto' ? 'Auto' : q}
                          </button>
                      ))}
+                     <div className="relative w-24">
+                         <input
+                           type="number"
+                           min={1}
+                           value={quantity === 'auto' ? '' : quantity}
+                           onChange={(e) => setQuantity(e.target.value ? Number(e.target.value) : 'auto')}
+                           placeholder="Custom"
+                           className={cn(
+                             "w-full h-10 border p-2 text-xs rounded focus:outline-none transition-all",
+                             (!quantities.includes(quantity) && quantity !== 'auto') 
+                               ? "border-[#2563EB] ring-1 ring-[#2563EB] dark:focus:ring-blue-500 bg-blue-50" 
+                               : "border-[#E2E8F0] focus:border-[#2563EB]"
+                           )}
+                         />
+                     </div>
                  </div>
              </div>
 
@@ -116,6 +131,27 @@ export function PrintSettingsStep() {
                  </div>
              </div>
 
+             <div className="space-y-2 pt-2">
+                 <label className="text-xs font-semibold text-[#1E293B] flex justify-between">
+                     <span>Page Margin</span>
+                     <span className="text-[#2563EB] font-mono bg-[#F1F5F9] px-1 rounded">{pageMargin}mm</span>
+                 </label>
+                 <input 
+                    type="range"
+                    min={0}
+                    max={50}
+                    step={1}
+                    value={pageMargin}
+                    onChange={(e) => setPageMargin(Number(e.target.value))}
+                    className="w-full h-1 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
+                 />
+                 <div className="flex justify-between text-xs text-[#94A3B8] px-1">
+                    <span>0</span>
+                    <span>25</span>
+                    <span>50</span>
+                 </div>
+             </div>
+
              <div className="pt-2 flex items-center gap-3">
                  <label className="flex items-center gap-3 cursor-pointer">
                     <input 
@@ -124,7 +160,7 @@ export function PrintSettingsStep() {
                        onChange={(e) => setCropMarks(e.target.checked)}
                        className="w-4 h-4 rounded text-[#2563EB] border-[#E2E8F0] accent-[#2563EB]"
                     />
-                    <span className="text-sm text-[#1E293B]">Include Crop Marks</span>
+                    <span className="text-sm text-[#1E293B]">Include Cutting Lines (Crop Marks)</span>
                  </label>
              </div>
 
