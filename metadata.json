@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Webguno Passport Photo Maker",
+  "description": "Create professional and compliant passport and ID photos entirely locally in your browser. Branded by WEBGUNO.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

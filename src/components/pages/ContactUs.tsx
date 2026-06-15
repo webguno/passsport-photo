@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { ArrowLeft, Mail, MessageSquare } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ArrowLeft, Instagram } from 'lucide-react';
 
 export function ContactUs() {
   const setCurrentView = useAppStore((state) => state.setCurrentView);
@@ -16,39 +15,21 @@ export function ContactUs() {
       </button>
       <h1 className="text-3xl font-bold text-[#1E293B] mb-6">Contact Us</h1>
       <p className="text-[#475569] mb-8 leading-relaxed">
-        Have questions, feedback, or need support? We're here to help. Reach out to us using the form below or via email.
+        Have questions, feedback, or need support? Reach out to me directly on Instagram.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-[#1E293B] mb-1">Name</label>
-            <input type="text" className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your name" />
+      <div className="flex flex-col items-center justify-center p-12 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0]">
+        <a 
+          href="https://instagram.com/web.guno" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex flex-col items-center group transition-transform hover:scale-105"
+        >
+          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-md border border-gray-100 group-hover:shadow-lg transition-all">
+            <Instagram size={32} className="text-[#E1306C]" strokeWidth={2} />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-[#1E293B] mb-1">Email</label>
-            <input type="email" className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="you@example.com" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-[#1E293B] mb-1">Message</label>
-            <textarea rows={4} className="w-full px-3 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="How can we help you?"></textarea>
-          </div>
-          <Button className="w-full">Send Message</Button>
-        </div>
-
-        <div className="bg-[#F8FAFC] p-6 rounded-lg border border-[#E2E8F0] h-fit">
-          <h3 className="font-semibold text-[#1E293B] mb-4">Other ways to reach us</h3>
-          <div className="space-y-4">
-            <div className="flex items-center text-[#475569]">
-              <Mail className="w-5 h-5 mr-3 text-[#2563EB]" />
-              <span>support@passportphoto.webguno.example</span>
-            </div>
-            <div className="flex items-center text-[#475569]">
-              <MessageSquare className="w-5 h-5 mr-3 text-[#2563EB]" />
-              <span>@webguno on Twitter</span>
-            </div>
-          </div>
-        </div>
+          <span className="text-lg font-medium text-[#1E293B] group-hover:text-[#E1306C] transition-colors">@web.guno</span>
+        </a>
       </div>
     </div>
   );

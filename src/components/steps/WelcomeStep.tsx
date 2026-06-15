@@ -99,17 +99,18 @@ export function WelcomeStep() {
         </div>
       </div>
 
-      {/* Important Details for Google Ads / Footer info */}
-      <div className="bg-[#EFF6FF] p-8 rounded-xl border border-[#DBEAFE] shadow-sm w-full text-sm flex flex-col space-y-6">
-        <div>
-           <h2 className="text-xl font-bold text-[#1E3A8A] mb-3">Important Information</h2>
-           <p className="leading-relaxed text-[#1E40AF]">This tool is provided as-is to help individuals crop and format their passport and ID photos according to common dimension guidelines. Please always double check with your local government or ID issuing authority for the latest requirements. All photos are generated purely locally on your client machine for maximum privacy.</p>
+      {/* Important Details / Footer info */}
+      <div className="w-full mt-8 pt-6 border-t border-[#E2E8F0] flex flex-col space-y-6">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium text-[#475569]">
+          <button onClick={() => useAppStore.getState().setCurrentView('privacy')} className="hover:text-[#2563EB] transition-colors">Privacy Policy</button>
+          <button onClick={() => useAppStore.getState().setCurrentView('terms')} className="hover:text-[#2563EB] transition-colors">Terms of Service</button>
+          <button onClick={() => useAppStore.getState().setCurrentView('contact')} className="hover:text-[#2563EB] transition-colors">Contact Us</button>
+          <button onClick={() => useAppStore.getState().setCurrentView('about')} className="hover:text-[#2563EB] transition-colors">About Us</button>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-[#BFDBFE] font-medium text-[#1D4ED8]">
-          <button onClick={() => useAppStore.getState().setCurrentView('privacy')} className="text-left hover:text-[#1E3A8A] transition-colors">Privacy Policy</button>
-          <button onClick={() => useAppStore.getState().setCurrentView('terms')} className="text-left hover:text-[#1E3A8A] transition-colors">Terms of Service</button>
-          <button onClick={() => useAppStore.getState().setCurrentView('contact')} className="text-left hover:text-[#1E3A8A] transition-colors">Contact Us</button>
-          <button onClick={() => useAppStore.getState().setCurrentView('about')} className="text-left hover:text-[#1E3A8A] transition-colors">About Us</button>
+        <div className="text-center px-4 pb-4">
+           <p className="text-xs text-[#94A3B8] leading-relaxed max-w-3xl mx-auto">
+             <strong>Disclaimer:</strong> This tool is provided as-is to help individuals crop and format their passport and ID photos according to common dimension guidelines. Please always double check with your local government or ID issuing authority for the latest requirements. All photos are generated purely locally on your client machine for maximum privacy.
+           </p>
         </div>
       </div>
 
