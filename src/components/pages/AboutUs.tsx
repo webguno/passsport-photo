@@ -28,7 +28,7 @@ export function AboutUs() {
           Whether you need a visa photo, a new passport, or a customized ID card, we provide the straightforward functionality required to get it done correctly.
         </p>
         <p className="font-medium text-[#1E293B] mt-6">
-          App By WEBGUNO
+          Passport Photo App By WEBGUNO
         </p>
       </div>
     </div>

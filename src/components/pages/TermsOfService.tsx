@@ -15,7 +15,7 @@ export function TermsOfService() {
       </button>
       <h1 className="text-3xl font-bold text-[#1E293B] mb-6">Terms of Service</h1>
       <div className="space-y-4 text-[#475569] leading-relaxed">
-        <p>By using Passport Photo Maker, you agree to the following terms and conditions.</p>
+        <p>By using Passport Photo App By WEBGUNO, you agree to the following terms and conditions.</p>
         <h2 className="text-xl font-semibold text-[#1E293B] mt-6 mb-3">1. Use of the Application</h2>
         <p>This tool is provided "as is" and is intended to help you format photos to common dimensions. We do not guarantee that the generated photos will be unconditionally accepted by any specific government or issuing authority.</p>
         <h2 className="text-xl font-semibold text-[#1E293B] mt-6 mb-3">2. User Responsibility</h2>

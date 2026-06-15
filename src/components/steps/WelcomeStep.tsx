@@ -37,7 +37,7 @@ export function WelcomeStep() {
         </div>
         <div className="space-y-2 max-w-lg">
           <h1 className="text-3xl font-bold tracking-tight text-[#1E293B]">
-            Passport Photo Maker
+            Passport Photo App By WEBGUNO
           </h1>
           <p className="text-sm text-[#64748B] leading-relaxed">
             Create professional passport, visa, and ID photos in seconds. Fully responsive, secure, and works entirely in your browser.
